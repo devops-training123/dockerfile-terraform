@@ -1,0 +1,22 @@
+provider "azurerm" {
+  features {}
+}
+
+resource "azurerm_machine" "example" {
+  name     = "example-linux"
+  location = "West Europe"
+}
+
+
+
+
+
+module for azure vm:
+
+module "linuxservers" {
+  source              = "Azure/compute/azurerm"
+  resource_group_name = azurerm_machine.example.name
+  vm_os_simple        = "UbuntuServer"
+  public_ip_dns       = ["linpsons"] 
+  vnet_subnet_id      = module.network.vnet_subnets[0]
+}
